@@ -476,3 +476,12 @@ unique(manual_dataframe$Scientific_Name)
 length(unique(curated_df_2$TaxID))
 unique(curated_df_2$Scientific_Name)
 ```
+
+Contacts
+-----------------------------------------------------
+* Name: __Giulia Agostinetto__
+* e-mail: __g.agostinetto@campus.unimib.it__
+* Name: __Davide Bozzi__
+* e-mail: __d.bozzi1@campus.unimib.it__
+
+Please refer to both contacts for further information or issues related to the framework.
