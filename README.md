@@ -1,4 +1,4 @@
-# SKIOME Metadata Retrieval
+# SKIOME Datasets and Metadata Retrieval
 
 ## Download SRAdb
 
@@ -230,11 +230,11 @@ setwd("/mnt/storageN/davide/R_SRAdb")
 ```{r Merging the dataframes}
 library(dplyr)
 # join SRAdb and E-Direct information in a single dataset:
-colnames(SRA_dataframe)[2] <- "Run"
-colnames(SRA_manual)[2] <- "Run"
-merged_df_2 <- rbind(SRA_dataframe, SRA_manual)
 
-merged_df_2 <- merge(merged_df_2, edirect_df, by = c("Run"), all.x = T, all.y = T)
+colnames(merged_df)[2] <- "Run"
+
+
+merged_df_2 <- merge(merged_df, edirect_df, by = c("Run"), all.x = T, all.y = T)
 # merge sparse study_id columns:
 merged_df_2 <- merged_df_2 %>%
   mutate(study = coalesce(study,SRAStudy))
@@ -249,15 +249,15 @@ for (w in 1:length(release)){
   release[w] <- substr(release[w], 1, 4)
 }
 merged_df_2 <- cbind(merged_df_2, release)
-colnames(merged_df_2)[135] <- "Year_of_release"
+colnames(merged_df_2)[146] <- "Year_of_release"
 ```
 
 ## Reorganize the columns:
 ```{r Columns removal and reorganization -part 2}
-curated_df_2 <- merged_df_2 %>% select(Run, Year_of_release, ReleaseDate, LoadDate, Submission, spots.y, bases.y, spots_with_mates, avgLength, size_MB, download_path, Experiment, LibraryStrategy, LibraryLayout, InsertSize, Platform, Model, experiment_title, design_description, library_name, experiment_attribute, Sample, BioSample, TaxID, ScientificName, Sex, Body_Site, sample_alias, description, sample_attribute, CenterName, SRAStudy, BioProject, center_project_name, sradb_updated, collection_method, vRegion, clustering_used, rSequences.OTUs.ASVs., taxon_database.used_in_the_study., taxon_database_version, coocurrence_study, disease.condition, Location, MGnify.analysis, DOI, Year_Of_Publication, study_description, study_abstract, Notes., Manual_Validation)
+curated_df_2 <- merged_df_2 %>% select(Run, Year_of_release, ReleaseDate, LoadDate, Submission, spots.y, bases.y, spots_with_mates, avgLength, size_MB, download_path, Experiment, LibraryStrategy, LibraryLayout, InsertSize, Platform, Model, experiment_title, design_description, library_name, experiment_attribute, Sample, BioSample, TaxID, ScientificName, Sex, Body_Site, sample_alias, description, sample_attribute, CenterName, SRAStudy, BioProject, center_project_name, sradb_updated, collection_method, vRegion, clustering_used, rSequences.OTUs.ASVs., taxon_database.used_in_the_study., taxon_database_version, coocurrence_study, disease.condition, Location, MGnify.analysis, DOI, Year_Of_Publication, Journal, WOS_Research_Areas, WOS_Categories, Scopus_Research_Subject_1, Scopus_Research_Subject_2, Scopus_Research_Subject_3, Scopus_Research_Subject_4, Scopus_Research_Subject_5, Scopus_Research_Subject_6, Medicine_journal, study_description, study_abstract, Notes., Manual_Validation)
 
 # rename columns:
-colnames(curated_df_2) <- c("Run", "Year_of_release", "Release_Date", "Load_Date", "Submission", "Spots", "Bases", "Spots_with_mates", "AvgLength", "Size_MB", "Download_path", "Experiment", "Library_Strategy", "Library_Layout", "Insert_Size", "Platform", "Model", "Experiment_title", "Design_description", "Library_name", "Experiment_attribute", "Sample_ID", "BioSample", "TaxID", "Scientific_Name", "Sex", "Body_Site", "Sample_alias", "Description", "Sample_attribute", "Center_Name", "Study_ID", "BioProject", "Center_project_name", "Sradb_updated", "Collection_method", "Region_16S", "Clustering_used", "nSequences_OTUs_ASVs", "Taxon_database_used_in_the_study", "Taxon_database_version", "Coocurrence_study", "Disease_condition", "Location", "MGnify_analysis", "DOI", "Year_Of_Publication", "Study_description", "Study_abstract", "Notes", "Manual_Validation")
+colnames(curated_df_2) <- c("Run", "Year_of_release", "Release_Date", "Load_Date", "Submission", "Spots", "Bases", "Spots_with_mates", "AvgLength", "Size_MB", "Download_path", "Experiment", "Library_Strategy", "Library_Layout", "Insert_Size", "Platform", "Model", "Experiment_title", "Design_description", "Library_name", "Experiment_attribute", "Sample_ID", "BioSample", "TaxID", "Scientific_Name", "Sex", "Body_Site", "Sample_alias", "Description", "Sample_attribute", "Center_Name", "Study_ID", "BioProject", "Center_project_name", "Sradb_updated", "Collection_method", "Region_16S", "Clustering_used", "nSequences_OTUs_ASVs", "Taxon_database_used_in_the_study", "Taxon_database_version", "Coocurrence_study", "Disease_condition", "Location", "MGnify_analysis", "DOI", "Year_Of_Publication", "Journal", "WOS_Research_Areas", "WOS_Categories", "Scopus_Research_Subject_1", "Scopus_Research_Subject_2", "Scopus_Research_Subject_3", "Scopus_Research_Subject_4", "Scopus_Research_Subject_5", "Scopus_Research_Subject_6", "Medicine_journal", "Study_description", "Study_abstract", "Notes", "Manual_Validation")
 ```
 
 ## Subset only manually retrieved studies:
@@ -298,6 +298,7 @@ length(unique(curated_df_2$Study_ID))
 dim(manual_dataframe)
 length(unique(manual_dataframe$Study_ID))
 
+
 # compare manual vs automatic search
 length(setdiff(unique(curated_df$Study_ID), unique(manual_dataframe$Study_ID)))
 length(setdiff(unique(manual_dataframe$Study_ID), unique(curated_df$Study_ID)))
@@ -307,6 +308,18 @@ unique(curated_df$Year_of_release)
 unique(manual_dataframe$Year_of_release)
 unique(manual_dataframe$Year_Of_Publication)
 
+length(which(curated_df$Year_of_release == "2015"))
+length(which(curated_df_2$Year_of_release == "2017"))
+length(which(manual_dataframe$Year_of_release == "2017"))
+length(which(manual_dataframe$Year_of_release == "2013"))
+length(which(manual_df$Year_Of_Publication == "2019"))
+
+length(which(curated_df$Year_of_release == "2008"))
+length(which(curated_df$Year_of_release == "2009"))
+length(which(curated_df$Year_of_release == "2010"))
+length(which(curated_df$Year_of_release == "2011"))
+
+
 # collection method:
 unique(manual_dataframe$Collection_method)
 length(which(manual_df$collection_method == "swab"))
@@ -315,6 +328,13 @@ length(which(manual_df$collection_method == "scrubs buffer washes"))
 length(which(manual_df$collection_method == "swab and tape-strip"))
 length(which(manual_df$collection_method == "swab and biopsy"))
 length(which(manual_df$collection_method == "swab, pore strip, glue strip"))
+
+length(which(manual_dataframe$Collection_method == "swab"))
+length(which(manual_dataframe$Collection_method == "biopsy"))
+length(which(manual_dataframe$Collection_method == "scrubs buffer washes"))
+length(which(manual_dataframe$Collection_method == "swab and tape-strip"))
+length(which(manual_dataframe$Collection_method == "swab and biopsy"))
+length(which(manual_dataframe$Collection_method == "swab, pore strip, glue strip"))
 
 # 16S region:
 # studies:
@@ -437,7 +457,7 @@ length(which(manual_df$disease.condition == "Cutaneous leishmaniasis lesions"))
 length(which(manual_df$disease.condition == "Buruli ulcer skin lesions"))
 
 # other conditions:
-length(which(manual_df$disease.condition == "Low bithweight"))
+length(which(manual_df$disease.condition == "Low birthweight"))
 length(which(manual_df$disease.condition == "Obesity"))
 
 
@@ -475,6 +495,551 @@ unique(manual_dataframe$Scientific_Name)
 
 length(unique(curated_df_2$TaxID))
 unique(curated_df_2$Scientific_Name)
+
+
+# Spots: dataframe1
+sum(is.na(curated_df$Spots))
+min(as.numeric(curated_df$Spots))
+length(which(curated_df$Spots == 0))
+max(as.numeric(curated_df$Spots))
+median(as.numeric(curated_df$Spots))
+tmp <- as.numeric(curated_df$Spots)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+
+# spots: dataframe2
+median(as.numeric(curated_df_2$Spots))
+tmp <- as.numeric(curated_df_2$Spots)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+# spots: dataframe3
+median(as.numeric(manual_dataframe$Spots))
+tmp <- as.numeric(manual_dataframe$Spots)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+
+# Bases: dataframe1
+sum(is.na(curated_df$Bases))
+min(as.numeric(curated_df$Bases))
+length(which(curated_df$Bases == 0))
+max(as.numeric(curated_df$Bases))
+mean(as.numeric(curated_df$Bases))
+sd(as.numeric(curated_df$Bases))
+median(as.numeric(curated_df$Bases))
+
+tmp <- as.numeric(curated_df$Bases)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+# Bases: dataframe2
+median(as.numeric(curated_df_2$Bases))
+tmp <- as.numeric(curated_df_2$Bases)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+# Bases: dataframe3
+median(as.numeric(manual_dataframe$Bases))
+tmp <- as.numeric(manual_dataframe$Bases)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+
+# Check AvgLength: dataframe1
+length(which(curated_df$AvgLength == "0"))
+tmp <- as.numeric(curated_df$AvgLength)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+
+# Check AvgLength: dataframe2
+length(which(curated_df_2$AvgLength == "0"))
+tmp <- as.numeric(curated_df_2$AvgLength)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+# Check AvgLength: dataframe3
+length(which(manual_dataframe$AvgLength == "0"))
+mean(as.numeric(manual_dataframe$AvgLength))
+sd(as.numeric(manual_dataframe$AvgLength))
+median(as.numeric(manual_dataframe$AvgLength))
+
+# insert size: dataframe1:
+length(which(curated_df$Insert_Size == "0"))
+mean(as.numeric(curated_df$Insert_Size))
+sd(as.numeric(curated_df$Insert_Size))
+median(as.numeric(curated_df$Insert_Size))
+tmp <- as.numeric(curated_df$Insert_Size)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+# insert size: dataframe2:
+length(which(curated_df_2$Insert_Size == "0"))
+mean(as.numeric(curated_df_2$Insert_Size))
+sd(as.numeric(curated_df_2$Insert_Size))
+median(as.numeric(curated_df_2$Insert_Size))
+tmp <- as.numeric(curated_df_2$Insert_Size)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+# insert size: dataframe3:
+length(which(manual_dataframe$Insert_Size == "0"))
+mean(as.numeric(manual_dataframe$Insert_Size))
+sd(as.numeric(manual_dataframe$Insert_Size))
+median(as.numeric(manual_dataframe$Insert_Size))
+tmp <- as.numeric(manual_dataframe$Insert_Size)
+mean(tmp[tmp != 0])
+median(tmp[tmp != 0])
+
+
+
+# Sex:
+unique(curated_df_2$Sex)
+
+#dataframe1
+length(which(curated_df$Sex == "male"))
+length(which(curated_df$Sex == "female"))
+
+#dataframe2
+length(which(curated_df_2$Sex == "male"))
+length(which(curated_df_2$Sex == "female"))
+
+dataframe3
+length(which(manual_dataframe$Sex == "male"))
+length(which(manual_dataframe$Sex == "female"))
+
+
+# Body site:
+unique(curated_df_2$Body_Site)
+
+# dataframe1
+length(which(curated_df$Body_Site == ""))
+length(which(curated_df$Body_Site == "Unknown"))
+length(which(curated_df$Body_Site == "not collected"))
+length(which(curated_df$Body_Site == "BODY_SITE"))
+length(which(curated_df$Body_Site == "Unspecified"))
+length(which(curated_df$Body_Site == "Not applicable"))
+length(which(curated_df$Body_Site == "not applicable"))
+
+# dataframe2
+sum(is.na(curated_df_2$Body_Site))
+length(which(curated_df_2$Body_Site == ""))
+length(which(curated_df_2$Body_Site == "Unknown"))
+length(which(curated_df_2$Body_Site == "not collected"))
+length(which(curated_df_2$Body_Site == "BODY_SITE"))
+length(which(curated_df_2$Body_Site == "Unspecified"))
+length(which(curated_df_2$Body_Site == "Not applicable"))
+length(which(curated_df_2$Body_Site == "not applicable"))
+
+length(which(curated_df_2$Body_Site == "control"))
+length(which(curated_df_2$Body_Site == "ctrl"))
+
+length(which(curated_df_2$Body_Site == "epidermis"))
+
+# dataframe3
+length(which(manual_dataframe$Body_Site == ""))
+length(which(manual_dataframe$Body_Site == "Unknown"))
+length(which(manual_dataframe$Body_Site == "not collected"))
+length(which(manual_dataframe$Body_Site == "BODY_SITE"))
+length(which(manual_dataframe$Body_Site == "Unspecified"))
+length(which(manual_dataframe$Body_Site == "Not applicable"))
+length(which(manual_dataframe$Body_Site == "not applicable"))
+
+# Journal
+unique(manual_df$Journal)
+unique(manual_df$WOS_Research_Areas)
+unique(manual_df$WOS_Categories)
+length(which(manual_df$Medicine_journal == "Yes"))
+
+length(which(manual_df$WOS_Research_Areas == "Immunology; Microbiology"))
+
+  
+
+```
+
+```{r Plots generation}
+# Plots:
+library(ggplot2)
+
+# Year of release:
+
+# data frame 2:
+vec <- curated_df_2$Year_of_release
+vec <- as.numeric(vec)
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_line(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") +
+  ggtitle("Year of release: samples (dataframe2)") +
+  theme_bw()
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") +
+  ggtitle("Year of release: samples (dataframe2")
+
+# data frame 3:
+
+vec <- manual_dataframe$Year_of_release
+vec <- as.numeric(vec)
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_line(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") +
+  ggtitle("Year of release: samples (dataframe3)") +
+  theme_bw()
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") +
+  ggtitle("Year of release: samples (dataframe3)")
+
+
+# data frame 3: (studies)
+
+vec <- manual_df$Year_Of_Publication
+add <- unlist(strsplit(vec[68], "[\n]"))
+vec <- head(vec, -1)
+vec <- append(vec, add)
+rm(add)
+vec <- as.numeric(vec)
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_line(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of studies") +  
+  ggtitle("Year of release: studies (dataframe3)") +
+  theme_bw()
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of studies") +
+  ggtitle("Year of release: studies (dataframe3)")
+
+# data frame 1:
+
+vec <- curated_df$Year_of_release
+vec <- as.numeric(vec)
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_line(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") + 
+  ggtitle("Year of release: samples (dataframe1)") +
+  theme_bw()
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  scale_x_continuous("vec2", labels = as.character(vec2), breaks = vec2) +
+  xlab("Year of release") + ylab("Number of samples") +
+  ggtitle("Year of release: samples (dataframe1)")
+
+
+# Seq Platform info - daraframe2:
+vec <- curated_df_2$Platform
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  labs(y= "Samples", x = "Sequencing Platform") +
+  ggtitle("Seq Platform - daraframe2: (samples)")
+
+
+# Seq Platform info - daraframe3:
+vec <- manual_dataframe$Platform
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  labs(y= "Samples", x = "Sequencing Platform") +
+  ggtitle("Seq Platform - daraframe3: (samples)")
+
+
+# Seq Platform Model info - daraframe2:
+vec <- curated_df_2$Model
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  labs(y= "Samples", x = "Sequencing Platform Model") +
+  ggtitle("Seq Platform Model info - daraframe2: (samples)")
+
+
+# Seq Platform Model info - daraframe3:
+vec <- manual_dataframe$Model
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  labs(y= "Samples", x = "Sequencing Platform Model")  +
+  ggtitle("Seq Platform Model info - daraframe3: (samples)")
+
+
+# Seq Platform Model info - daraframe3: (studies)
+vec <- manual_df$Seq_Platform
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Sequencing Platform Model") +
+  ggtitle("Seq Platform Model info - daraframe3: (studies)")
+
+
+# Info on the 16S region: (studies) - dataset 3
+vec <- manual_df$vRegion
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "16S rRNA hypervariable region sequenced") +
+  ggtitle("16S rRNA region - daraframe3: (studies)")
+
+# Info on the 16S region: (samples) - dataset 3
+vec <- manual_dataframe$Region_16S
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Samples", x = "16S rRNA hypervariable region sequenced") +
+  ggtitle("16S rRNA region - daraframe3: (samples)")
+
+
+# Collection method (for the samples): -dataframe3
+vec <- manual_dataframe$Collection_method
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Samples", x = "Collection method") +
+  ggtitle("Collection method - daraframe3: (samples)")
+
+# Collection method (for the studies):-dataframe3
+vec <- manual_df$collection_method
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Collection method") +
+  ggtitle("Collection method - daraframe3: (studies)")
+
+# Clustering method used in the studies:
+vec <- manual_df$clustering_used
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Clustering method") +
+  ggtitle("Clustering method - daraframe3: (studies)")
+
+# Disease and conditions: (studies) - dataframe3
+vec <- manual_df$disease.condition
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Disease/condition") +
+  ggtitle("Diseases and conditions - daraframe3: (studies)")
+
+
+# Taxonomic database:
+vec <- manual_df$taxon_database.used_in_the_study.
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Taxonomic database used in the study") +
+  ggtitle("Taxonomic database used in the study - daraframe3")
+
+
+# Location of the study:
+vec <- manual_df$Location
+vec2 <- unique(vec)
+count <- c()
+
+for (j in 1:length(vec2)){
+  count <- append(count, length(which(vec==vec2[j])))
+}
+
+#create a dataframe
+plotdf <- data.frame(vec2, count)
+
+ggplot(data=plotdf, aes(x=vec2, y=count)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(y= "Studies", x = "Location of the study") +
+  ggtitle("Location of the study - daraframe3")
+
+names_location <- plotdf$vec2
+number <- c()
+for(k in 1:length(names_location)){
+  number <- append(number, length(which(manual_df$Location == names_location[k])))
+}
+plotdf <- data.frame(names_location, number)
+
+library(viridis)
+ggplot(plotdf, aes(x = names_location, y = names_location, size = number, fill = number)) +
+  geom_point(shape = 21) +
+  scale_fill_viridis_c(option = "plasma")
+
+
+# Parallel Coordinates Plot
+# Libraries
+library(ggplot2)
+library(GGally)
+library(viridis)
+library(parcoords)
+
+# Plot
+ggparcoord(manual_df,
+           columns = c(6:9, 11, 13:15, 21:23),
+           groupColumn = 30,
+           scale = "uniminmax")
+
 ```
 
 Contacts
