@@ -1,5 +1,7 @@
 # SKIOME Datasets and Metadata Retrieval
 
+![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/Project%20Exta.png)
+
 ## Download SRAdb
 
 Install SRAdb package if not present
