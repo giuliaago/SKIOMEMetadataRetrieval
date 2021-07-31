@@ -1,6 +1,6 @@
 # SKIOME Datasets and Metadata Retrieval
 
-![alt text](https://github.com/qLSLab/extaxsi/blob/master/images/Project%20Exta.png)
+![alt text](https://github.com/giuliaago/SKIOMEMetadataRetrieva/blob/master/skiome_workflow.png)
 
 ## Download SRAdb
 
