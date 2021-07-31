@@ -1,6 +1,5 @@
 # SKIOME Datasets and Metadata Retrieval
 
-#![alt text](https://github.com/giuliaago/SKIOMEMetadataRetrieval/skiome_workflow.png)
 ![Screenshot](skiome_workflow.png)
 
 ## Download SRAdb
