@@ -55,17 +55,16 @@ for a in $sample_list
 done
 ```
 
-```{r Create a list with the names of the EDirect files} 
-# convert to vector of characters
-auto_list <- as.character(auto_list$studies_list)
-# append the _runinfo to each character to create a vector with the names of the file you need to import
-auto_list <- paste(auto_list, "_runinfo", sep = "")
-```
-
 ## Import metadata obtained from EDirect tool into a single dataframe
 ```{r Direct metadata import from automatically searched studies}
 # set the directory to where the EDirect runifo files are located
 setwd("FULL_PATH/EDirect_metadata")
+
+# Create a list with the names of the EDirect files:
+# convert to vector of characters
+auto_list <- as.character(auto_list$studies_list)
+# append the _runinfo to each character to create a vector with the names of the file you need to import
+auto_list <- paste(auto_list, "_runinfo", sep = "")
 
 # create a empty dataframe:
 auto_edirect <- data.frame(matrix(ncol = 47, nrow = 0))
@@ -199,21 +198,19 @@ for a in $sample_list
 done
 ```
 
-```{r Create another list with the names of the EDirect files} 
-# convert to vector of characters
-edirect_list <- as.character(edirect_list$study)
-# append the _runinfo to each character to create a vector with the names of the file you need to import
-edirect_list <- paste(edirect_list, "_runinfo", sep = "")
-
-```
 
 ## EDirect metadata import for the manual dataset list
 
 Import metadata obtained from EDirect tool into a sigle dataframe
 ```{r EDirect metadata import from manually searched studies}
-
 # set the directory to where the EDirect runifo files are located
 setwd("/FULL_PATH/EDirect_metadata")
+
+# Create another list with the names of the EDirect files:
+# convert to vector of characters
+edirect_list <- as.character(edirect_list$study)
+# append the _runinfo to each character to create a vector with the names of the file you need to import
+edirect_list <- paste(edirect_list, "_runinfo", sep = "")
 
 # create a empty dataframe:
 edirect_df <- data.frame(matrix(ncol = 47, nrow = 0))
