@@ -25,7 +25,7 @@ We then generated three Data Frames:
 ## Step 2: Metadata retrieval and enrichment
 We then proceeded to collect metadata associated with the datasets in three ways:  
 i) automatic search with SRAdb  
-ii) automatic search with the Entrez Direct tool (EDirect)  
+ii) automatic search with the Entrez Direct tool (EDirect) - (https://www.ncbi.nlm.nih.gov/books/NBK179288/)  
 iii) manual inspection of the publication (only for the manually retrieved datasets)
 
 ## Step 3: Data Frames curation
