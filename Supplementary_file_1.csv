@@ -1,0 +1,62 @@
+Metadata,Typology,Decription
+Run,submission metadata,ID of the sequencing run
+Year_of_release,submission metadata,Dataset year of release
+Release_Date,submission metadata,Date in which the dataset has been released
+Load_Date,submission metadata,Date in which the dataset has been loaded
+Submission,submission metadata,"ID of the submission to one of the INSDC databases (SRA, ENA, DRA)"
+Spots,submission metadata,Sequencing clusters that generated sequence
+Bases,submission metadata,Number of nucleotides
+Spots_with_mates,submission metadata,Number of sequencing clusters with mates
+AvgLength,submission metadata,The average read length
+Size_MB,submission metadata,The size of the file
+Download_path,submission metadata,The path to download the file
+Experiment,submission metadata,ID of the experiment
+Library_Strategy,pipeline metadata,"Type of sequencing performed (e.g. AMPLICON, WGS)"
+Library_Layout,pipeline metadata,Specification on if it was a paired-end or single-end sequencing experiment
+Insert_Size,submission metadata,The size of the insert in the sequencing library (without adapters)
+Platform,pipeline metadata,The platform used for sequencing
+Model,pipeline metadata,The model of teh platform used for sequencing
+Experiment_title,submission metadata,Title associated to the experiment
+Design_description,submission metadata,Dexcription of the experiment design
+Library_name,submission metadata,Name of the library
+Experiment_attribute,submission metadata,Information on the experiment
+Sample_ID,submission metadata,ID of the sample
+BioSample,submission metadata,ID of the BioSample
+TaxID,submission metadata,Taxonomic ID
+Scientific_Name,submission metadata,Scientific name associated with the TaxID
+Sex,submission metadata,Sex of the sampled human
+Body_Site,submission metadata,Body site of the sampling
+Sample_alias,submission metadata,Name of the sample
+Description,submission metadata,Descriprion of the sample
+Sample_attribute,submission metadata,Information on the sample
+Center_Name,submission metadata,Name of the research center that performed the study
+Study_ID,submission metadata,ID of the study
+BioProject,submission metadata,ID of the BioProject
+Center_project_name,submission metadata,Name of the project given by the research center that performed the study
+Sradb_updated,submission metadata,Date of update of teh SRAdb database
+Collection_method,pipeline metadata,Method used to collect the sample
+Region_16S,pipeline metadata,16S rRNA hypervariabel region sequenced
+Clustering_used,pipeline metadata,Clustering method used in the published study
+nSequences_OTUs_ASVs,pipeline metadata,Number of units/variants as reported in the published study
+Taxon_database_used_in_the_study,pipeline metadata,Taxonomic database used in the published study
+Taxon_database_version,pipeline metadata,Version of the taxionomic database used in the published study
+Coocurrence_study,pipeline metadata,Presence of a co-occurrence analysis in the published study
+Disease_condition,context metadata,Skin disease or condition investigated
+Location,context metadata,Site of the sampling (Nation)
+MGnify_analysis,context metadata,Presence of a MGnify analysis
+DOI,context metadata,DOI of the publication
+Year_Of_Publication,context metadata,Year of the scientific article publication
+Journal,context metadata,Name of the scientific journal that published the article
+WOS_Research_Areas,context metadata,Research area of the scientific journal according to Web of Science 
+WOS_Categories,context metadata,Web of Science category of the scientific journal
+Scopus_Research_Subject_1,context metadata,Research subject of the scientific journal according to Scopus
+Scopus_Research_Subject_2,context metadata,Research subject of the scientific journal according to Scopus
+Scopus_Research_Subject_3,context metadata,Research subject of the scientific journal according to Scopus
+Scopus_Research_Subject_4,context metadata,Research subject of the scientific journal according to Scopus
+Scopus_Research_Subject_5,context metadata,Research subject of the scientific journal according to Scopus
+Scopus_Research_Subject_6,context metadata,Research subject of the scientific journal according to Scopus
+Medicine_journal,context metadata,"Presence of ""Medicine"" among the Scopus research subjects"
+Study_description,context metadata,Description of the study
+Study_abstract,context metadata,Abstract of the published study
+Notes,context metadata,Additional notes on the study
+Manual_Validation,context metadata,Specification on if the study has been manually validated
