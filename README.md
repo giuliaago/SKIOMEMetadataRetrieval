@@ -36,9 +36,17 @@ For Data Frame 3 we also:
 - Removed undesired samples  
 - Corrected errors in the metadata (by double-cheking with the published study)  
 
-In this way we generated three different Data Frames at different curation levels.  
+## Output:
+In this way we generated three different Data Frames at different curation levels:  
+- Data Frame 1 (only datasets and metadata from the automatic search)
+- Data Frame 2 (datasets and metadata from both the automatic and the manual searches)
+- Data Frame 3 (only datasets from the manual search and metadata from both the manual and automatic searches)  
 The Data Frames contains a comprehensive collection of human skin microbiome datasets enriched with metadata recovered from different sources.  
 The Data Frames are easily explorable and can be useful for researchers interested in conducting meta-analyses with human skin microbiome amplicon data.  
+
+The data frames are provided in the compressed folder "data_frames" on this github.
+
+The result of the manual search for the datasets and metadata is provided on this github as a dataframe in .csv format called "Human_Skin_Datasets_Manual_Search".
 
 Full codes used in this study are provided with a description in the Bioinformatic_Pipeline.md file.
 
