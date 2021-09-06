@@ -1,4 +1,4 @@
-# SKIOME - Datasets and Metadata Retrieval
+# SKIOME Project - Datasets and Metadata Retrieval
 
 ![Screenshot](skiome_workflow-01.png)
 
