@@ -1,4 +1,4 @@
-# SKIOME Datasets and Metadata Retrieval - Bioinformatic Pipeline
+# SKIOME Datasets and Metadata Retrieval - Pipeline
 
 ## Download SRAdb
 
