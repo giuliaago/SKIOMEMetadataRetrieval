@@ -1,6 +1,6 @@
 # SKIOME Project - Datasets and Metadata Retrieval
 
-![Screenshot](skiome_workflow-01.png)
+![Screenshot](skiome_workflow.png)
 
 Here we report the bioinformatic pipeline used for the SKIOME Project: a curated collection of skin microbiome datasets enriched with study-related metadata.  
 The aim of the project was to provide a comprehensive list of datasets of human skin 16S rRNA amplicon sequencing enriched with metadata.
