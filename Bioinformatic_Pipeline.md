@@ -287,6 +287,13 @@ manual_dataframe <- manual_dataframe %>% mutate(Library_Strategy = ifelse(Study_
 manual_dataframe <- manual_dataframe[manual_dataframe$Library_Strategy != "WGS",]
 ```
 
+## Collapse the Scopus research subjects into a single column:
+```{r}
+manual_dataframe$Scopus_Research_Subject <- paste(manual_dataframe$Scopus_Research_Subject_1, manual_dataframe$Scopus_Research_Subject_2, manual_dataframe$Scopus_Research_Subject_3, manual_dataframe$Scopus_Research_Subject_4, manual_dataframe$Scopus_Research_Subject_5, manual_dataframe$Scopus_Research_Subject_6, sep = "; ")
+
+curated_df_2$Scopus_Research_Subject <- paste(curated_df_2$Scopus_Research_Subject_1, curated_df_2$Scopus_Research_Subject_2, curated_df_2$Scopus_Research_Subject_3, curated_df_2$Scopus_Research_Subject_4, curated_df_2$Scopus_Research_Subject_5, curated_df_2$Scopus_Research_Subject_6, sep = "; ")
+```
+
 ## Export the dataframes:
 ```{r Export the dataframes to csv}
 write.csv(curated_df, "Dataframe_1_Automatic.csv", row.names = FALSE)
