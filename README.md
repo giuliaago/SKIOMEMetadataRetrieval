@@ -44,11 +44,11 @@ In this way we generated three different Data Frames at different curation level
 The Data Frames contains a comprehensive collection of human skin microbiome datasets enriched with metadata recovered from different sources.  
 The Data Frames are easily explorable and can be useful for researchers interested in conducting meta-analyses with human skin microbiome amplicon data.  
 
-The data frames are provided in the compressed folder "data_frames" on this Github page.
+The data frames are provided in the .csv format as zips.
 
 The result of the manual search for the datasets and metadata is provided on this Github as a dataframe in .csv format called "Human_Skin_Datasets_Manual_Search".
 
-Full codes used in this study are provided with a description in the Bioinformatic_Pipeline.md file.
+Full codes used in this study are provided as a jupyter notebook in SKIOME_notebook.ipynb and in the SKIOME_pipeline.md file.
 
 
 Contacts
